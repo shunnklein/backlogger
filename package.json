@@ -7,17 +7,20 @@
     "build": "npx @dotenvx/dotenvx run -- next build --turbopack",
     "start": "npx @dotenvx/dotenvx run -- next start",
     "lint": "eslint",
-    "postinstall": "prisma generate --no-engine"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "6.15.0",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "next": "15.5.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.49.0",
     "@eslint/eslintrc": "^3",
+    "@prisma/adapter-pg": "^6.15.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
