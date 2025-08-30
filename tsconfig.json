@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@prisma/client": ["./src/prismaClientSingleton.ts"],
+      "@prisma/*": ["./src/generated/prisma-client/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
