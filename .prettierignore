@@ -1,0 +1,5 @@
+# Prettier already ignores paths specified in the .gitignore file
+# Add additional files that should be ignored by the formatter
+
+# Prettier's not allowed to format GitHub workflows
+.github/workflows 
