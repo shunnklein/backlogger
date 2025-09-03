@@ -4,16 +4,19 @@ import type { NextConfig } from "next";
 import "@src/env/server";
 import "@src/env/client";
 
+// TODO: Read the full next js config docs and bring this project up to date with best practices
 const nextConfig: NextConfig = {
-  /* config options here */
   experimental: {
-    //
+    // This is kinda an unnecessary feature because we are already using `t3-oss` 
+    // to validate env vars at build time, but it's here to just give a little 
+    // intellisense help when actually using `process.env.*` in the code.
     typedEnv: true,
   },
   typedRoutes: true,
   
-  // from https://env.t3.gg/docs/nextjs :
-  // if you turn on `output: "standalone"`, you need to make sure to include `transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"]`
+  /* Note for the t3-oss npm package, from https://env.t3.gg/docs/nextjs :
+   * > if you turn on `output: "standalone"`, you need to make sure to include `transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"]`
+   */
 };
 
 export default nextConfig;
