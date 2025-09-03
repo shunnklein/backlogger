@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic"; // This disables SSG and ISR
 
 import Form from "next/form";
-import prisma from "@prisma/client";
+import db from "db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function NewPost() {
           authorId: 0, // Replace 0 with a default or fallback authorId
         };
 
-    await prisma.post.create({
+    await db.post.create({
       data: postData,
     });
 
