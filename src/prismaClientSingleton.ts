@@ -1,7 +1,7 @@
 // Import the PrismaClient class from the generated Prisma client
-import { PrismaClient } from "@/generated/prisma-client/client";
+import { PrismaClient } from "db/client";
 import { PrismaPg } from '@prisma/adapter-pg'
-import { env } from "@/env/server";
+import { env } from "@src/env/server";
 
 type GetDbParams = {
   connectionString: string

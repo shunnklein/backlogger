@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 // These imports will typecheck that the env files match the shape expected by typescript
-import "@/env/server";
-import "@/env/client";
+import "@src/env/server";
+import "@src/env/client";
 
 const nextConfig: NextConfig = {
   /* config options here */
