@@ -34,5 +34,10 @@
   },
   "dependenciesComments": {
     "tsx": "only for the prisma migration seed. if that gets removed or we move to a node version that supports typescript this can be removed"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "24.x",
+    "npm": "11.x"
   }
 }
