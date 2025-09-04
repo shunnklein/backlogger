@@ -14,7 +14,7 @@ export default async function Post({
   const post = await db.post.findUnique({
     where: { id: postId },
     include: {
-      author: true,
+      user: true,
     },
   });
 
@@ -47,7 +47,7 @@ export default async function Post({
         <p className="text-lg text-gray-600 mb-4">
           by{" "}
           <span className="font-medium text-gray-800">
-            {post.author?.name || "Anonymous"}
+            {post.user?.name || "Anonymous"}
           </span>
         </p>
 
