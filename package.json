@@ -36,6 +36,7 @@
     "typescript": "^5"
   },
   "dependenciesComments": {
+    "@eslint/eslintrc": "This could probably be removed at some point if the config file is updated",
     "tsx": "only for the prisma migration seed. if that gets removed or we move to a node version that supports typescript this can be removed"
   },
   "engineStrict": true,
