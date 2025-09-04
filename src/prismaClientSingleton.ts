@@ -1,11 +1,11 @@
 // Import the PrismaClient class from the generated Prisma client
 import { PrismaClient } from "db/client";
-import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaPg } from "@prisma/adapter-pg";
 import { env } from "@src/env/server";
 
 type GetDbParams = {
-  connectionString: string
-}
+  connectionString: string;
+};
 
 /**
  * Creates and returns a singleton instance of the PrismaClient configured with a custom
@@ -22,11 +22,11 @@ type GetDbParams = {
  * @returns {PrismaClient} A configured instance of PrismaClient using the PrismaPg adapter.
  */
 function getDb({ connectionString }: GetDbParams) {
-  const pool = new PrismaPg({ connectionString }, { schema: 'prisma' })
-  const prismaClient = new PrismaClient({ adapter: pool })
+  const pool = new PrismaPg({ connectionString }, { schema: "prisma" });
+  const prismaClient = new PrismaClient({ adapter: pool });
 
-  return prismaClient
+  return prismaClient;
 }
 
-const prismaClient = getDb({ connectionString: env.DATABASE_URL })
-export default prismaClient
+const prismaClient = getDb({ connectionString: env.DATABASE_URL });
+export default prismaClient;

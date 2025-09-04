@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     // In this repo use `npm run lint` to run the full lint
     // Vscode should show you lint errors as you type
     // and pull request restrictions will run the full lint too
-    "ignoreDuringBuilds": true,
+    ignoreDuringBuilds: true,
   },
 
   // from https://env.t3.gg/docs/nextjs :

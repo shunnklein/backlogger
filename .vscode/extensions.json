@@ -1,11 +1,11 @@
 {
-    "recommendations": [
-        "yoavbls.pretty-ts-errors",
-        "streetsidesoftware.code-spell-checker",
-        "prisma.prisma",
-        "dbaeumer.vscode-eslint",
-        "graphite.gti-vscode",
-        "bradlc.vscode-tailwindcss",
-        "esbenp.prettier-vscode"
-    ]
+  "recommendations": [
+    "yoavbls.pretty-ts-errors",
+    "streetsidesoftware.code-spell-checker",
+    "prisma.prisma",
+    "dbaeumer.vscode-eslint",
+    "graphite.gti-vscode",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode"
+  ]
 }
