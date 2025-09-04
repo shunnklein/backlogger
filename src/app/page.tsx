@@ -10,7 +10,7 @@ export default async function Home() {
     },
     take: 6,
     include: {
-      author: {
+      user: {
         select: {
           name: true,
         },
@@ -31,7 +31,7 @@ export default async function Home() {
                 {post.title}
               </h2>
               <p className="text-sm text-gray-500">
-                by {post.author ? post.author.name : "Anonymous"}
+                by {post.user ? post.user.name : "Anonymous"}
               </p>
               <p className="text-xs text-gray-400 mb-4">
                 {new Date(post.createdAt).toLocaleDateString("en-US", {
