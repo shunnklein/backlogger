@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx @dotenvx/dotenvx run -- next dev --turbopack",
-    "build": "npx @dotenvx/dotenvx run -- next build --turbopack",
-    "start": "npx @dotenvx/dotenvx run -- next start",
+    "build": "next build --turbopack",
+    "start": "next start",
     "format": "prettier --write . --cache",
     "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config",
     "postinstall": "prisma generate"
