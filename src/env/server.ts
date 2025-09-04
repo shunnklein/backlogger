@@ -19,6 +19,8 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.url().startsWith("postgresql://"),
+    SHADOW_DATABASE_URL: z.url().startsWith("postgresql://"),
+    AUTH_SECRET: z.string().min(1),
   },
   experimental__runtimeEnv: process.env,
 });
