@@ -2,11 +2,13 @@
   "name": "backlogger",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "npx @dotenvx/dotenvx run -- next dev --turbopack",
-    "build": "npx @dotenvx/dotenvx run -- next build --turbopack",
-    "start": "npx @dotenvx/dotenvx run -- next start",
-    "lint": "eslint",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "format": "prettier --write . --cache",
+    "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -34,6 +36,7 @@
     "typescript": "^5"
   },
   "dependenciesComments": {
+    "@eslint/eslintrc": "This could probably be removed at some point if the config file is updated",
     "tsx": "only for the prisma migration seed. if that gets removed or we move to a node version that supports typescript this can be removed"
   },
   "engineStrict": true,

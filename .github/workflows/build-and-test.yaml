@@ -1,0 +1,91 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Format, Build, and Lint
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        # This was important for pushing changes back to the PR branch. Ive disabled this for now.
+        # with:
+        #   ref: ${{ github.head_ref || github.ref_name }}
+        #   token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: "npm"
+      - name: Run a Prettier Check
+        run: npx prettier --check .
+
+      # TODO: These github cache actions weren't working for some reason. Ill make an issue to fix later. The save action would say "another job may be creating this cache"
+      # - name: Fetch Prettier Cache
+      #   uses: actions/cache/restore@v4
+      #   with:
+      #     path: ./node_modules/.cache/prettier/.prettier-cache
+      #     key: prettier-cache-${{ hashFiles('.prettierrc.ts') }} # cache bust on the config file to drop caches if plugins are added
+      # - name: Prettier Fix Format
+      #   id: format
+      #   run:
+      #     | # format the codebase with Prettier and take note of the files that were changed
+      #     {
+      #       echo 'FORMATTED_FILES<<EOF'
+      #       npx prettier --write . --cache --list-different
+      #       echo EOF
+      #     } >> "$GITHUB_OUTPUT"
+      # - name: Save Prettier Cache
+      #   uses: actions/cache/save@v4
+      #   with:
+      #     path: ./node_modules/.cache/prettier/.prettier-cache
+      #     key: prettier-cache-${{ hashFiles('.prettierrc.ts') }}
+
+      # TODO: Retry the prettier autoformatting. Next time I think it'll be better to have it open up a pull request rather than committing directly
+      # - name: Prettier Fix Format
+      #   id: format
+      #   run:
+      #     | # format the codebase with Prettier and take note of the files that were changed
+      #     {
+      #       echo 'FORMATTED_FILES<<EOF'
+      #       npx prettier --write . --list-different
+      #       echo EOF
+      #     } >> "$GITHUB_OUTPUT"
+      # - name: Commit and Push Prettier Changes
+      #   run: >
+      #     if [ -z "${{ steps.format.outputs.FORMATTED_FILES }}" ]; then
+      #       echo "No files were formatted by Prettier."
+      #       exit 0
+      #     fi
+      #     ; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     ; git config user.name "github-actions[bot]"
+      #     ; echo "${{ steps.format.outputs.FORMATTED_FILES }}"
+      #     | git commit -m "chore: apply Prettier formatting" 
+      #     --author "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+      #     --pathspec-from-file -
+      #     && git push
+
+  build-and-lint:
+    needs: format
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: "postgresql://NOT_A_REAL_URL"
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build # typescript compile, bundling, and static file generation
+      - run: npm run lint
