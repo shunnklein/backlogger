@@ -2,11 +2,12 @@
   "name": "backlogger",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "npx @dotenvx/dotenvx run -- next dev --turbopack",
     "build": "npx @dotenvx/dotenvx run -- next build --turbopack",
     "start": "npx @dotenvx/dotenvx run -- next start",
-    "lint": "eslint",
+    "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config",
     "postinstall": "prisma generate"
   },
   "dependencies": {
