@@ -48,17 +48,15 @@ function PostsList() {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading ?
         <div className="flex items-center justify-center space-x-2 min-h-[200px]">
           <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
-      ) : (
-        <>
-          {posts.length === 0 ? (
+      : <>
+          {posts.length === 0 ?
             <p className="text-gray-600">No posts available.</p>
-          ) : (
-            <ul className="space-y-6 w-full max-w-4xl mx-auto">
+          : <ul className="space-y-6 w-full max-w-4xl mx-auto">
               {posts.map((post) => (
                 <li
                   key={post.id}
@@ -83,7 +81,7 @@ function PostsList() {
                 </li>
               ))}
             </ul>
-          )}
+          }
 
           {/* Pagination Controls */}
           <div className="flex justify-center space-x-4 mt-8">
@@ -103,7 +101,7 @@ function PostsList() {
             )}
           </div>
         </>
-      )}
+      }
     </>
   );
 }

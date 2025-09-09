@@ -53,13 +53,12 @@ export default async function Post({
 
         {/* Content Section */}
         <div className="text-lg text-gray-800 leading-relaxed space-y-6 border-t pt-6">
-          {post.content ? (
+          {post.content ?
             <p>{post.content}</p>
-          ) : (
-            <p className="italic text-gray-500">
+          : <p className="italic text-gray-500">
               No content available for this post.
             </p>
-          )}
+          }
         </div>
       </article>
 
