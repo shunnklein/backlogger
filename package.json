@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx @dotenvx/dotenvx run -- next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
+    "dev": "npx @dotenvx/dotenvx run --convention=nextjs -- next dev --turbopack",
+    "build": "npx @dotenvx/dotenvx run --convention=nextjs -- next build --turbopack",
+    "start": "npx @dotenvx/dotenvx run --convention=nextjs -- next start",
     "format": "prettier --write . --cache",
     "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "encrypt": "npx @dotenvx/dotenvx encrypt --env-file .env --exclude-key DATABASE_URL",
+    "decrypt": "npx @dotenvx/dotenvx decrypt --env-file .env"
   },
   "dependencies": {
     "@prisma/client": "6.16.0",
