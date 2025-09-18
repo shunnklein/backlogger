@@ -1,33 +1,19 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "prisma"."User" (
+    "id" CHAR(24) NOT NULL,
+    "name" TEXT,
+    "email" TEXT NOT NULL,
+    "emailVerified" TIMESTAMP(3),
+    "image" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
-  - You are about to drop the column `authorId` on the `Post` table. All the data in the column will be lost.
-  - The primary key for the `User` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - Added the required column `userId` to the `Post` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `updatedAt` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
--- DropForeignKey
-ALTER TABLE "prisma"."Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- AlterTable
-ALTER TABLE "prisma"."Post" DROP COLUMN "authorId",
-ADD COLUMN     "userId" TEXT NOT NULL;
-
--- AlterTable
-ALTER TABLE "prisma"."User" DROP CONSTRAINT "User_pkey",
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "emailVerified" TIMESTAMP(3),
-ADD COLUMN     "image" TEXT,
-ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL,
-ALTER COLUMN "id" DROP DEFAULT,
-ALTER COLUMN "id" SET DATA TYPE TEXT,
-ADD CONSTRAINT "User_pkey" PRIMARY KEY ("id");
-DROP SEQUENCE "User_id_seq";
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "prisma"."Account" (
-    "userId" TEXT NOT NULL,
+    "userId" CHAR(24) NOT NULL,
     "type" TEXT NOT NULL,
     "provider" TEXT NOT NULL,
     "providerAccountId" TEXT NOT NULL,
@@ -47,7 +33,7 @@ CREATE TABLE "prisma"."Account" (
 -- CreateTable
 CREATE TABLE "prisma"."Session" (
     "sessionToken" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "userId" CHAR(24) NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL
@@ -61,6 +47,22 @@ CREATE TABLE "prisma"."VerificationToken" (
 
     CONSTRAINT "VerificationToken_pkey" PRIMARY KEY ("identifier","token")
 );
+
+-- CreateTable
+CREATE TABLE "prisma"."Post" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "title" TEXT NOT NULL,
+    "content" TEXT,
+    "published" BOOLEAN NOT NULL DEFAULT false,
+    "userId" CHAR(24) NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "prisma"."User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "prisma"."Session"("sessionToken");
