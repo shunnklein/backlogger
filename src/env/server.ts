@@ -1,5 +1,8 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
+import dotenvx from "@dotenvx/dotenvx";
+// This type checked env structure here is copied from the https://env.t3.gg/docs/nextjs page.
+// I've modified it to use dotenvx as the source of env vars
 
 /**
  * Represents a build-time checked object for environment variables.
@@ -20,5 +23,7 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.url().startsWith("postgresql://"),
   },
-  experimental__runtimeEnv: process.env,
+  experimental__runtimeEnv:
+    dotenvx.config({ convention: "nextjs" }).parsed ?? {},
+  emptyStringAsUndefined: true,
 });

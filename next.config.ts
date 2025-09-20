@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 // These imports will typecheck that the env files match the shape expected by typescript
 import "@src/env/server";
-import "@src/env/client";
 
 // TODO: Read the full next js config docs and bring this project up to date with best practices
 const nextConfig: NextConfig = {
