@@ -9,25 +9,25 @@ export default function NewPost() {
   async function createPost(formData: FormData) {
     "use server";
 
-    const authorEmail = (formData.get("authorEmail") as string) || undefined;
+    const userEmail = (formData.get("authorEmail") as string) || undefined;
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
 
     const postData =
-      authorEmail ?
+      userEmail ?
         {
           title,
           content,
-          author: {
+          user: {
             connect: {
-              email: authorEmail,
+              email: userEmail,
             },
           },
         }
       : {
           title,
           content,
-          authorId: 0, // Replace 0 with a default or fallback authorId
+          userId: "0", // Replace with a default or fallback userId
         };
 
     await db.post.create({
@@ -74,17 +74,14 @@ export default function NewPost() {
           />
         </div>
         <div>
-          <label
-            htmlFor="authorEmail"
-            className="block text-lg font-medium mb-2"
-          >
-            Author
+          <label htmlFor="userEmail" className="block text-lg font-medium mb-2">
+            User
           </label>
           <input
             type="text"
-            id="authorEmail"
-            name="authorEmail"
-            placeholder="Enter the email of the author here ..."
+            id="userEmail"
+            name="userEmail"
+            placeholder="Enter the email of the user here ..."
             className="w-full px-4 py-2 border rounded-lg"
           />
         </div>

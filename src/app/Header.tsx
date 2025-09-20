@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Header() {
+  const { data: userSession, status } = useSession();
   return (
     <header className="w-full bg-white shadow-md py-4 px-8">
       <nav className="flex justify-between items-center">
@@ -25,6 +27,23 @@ export default function Header() {
           >
             New User
           </Link>
+          {status === "authenticated" ?
+            <div className="flex flex-col items-center justify-center">
+              <p>Welcome, {userSession?.user?.name}!</p>
+              <button
+                onClick={() => signOut()}
+                className="cursor-pointer hover:text-gray-600"
+              >
+                Sign out
+              </button>
+            </div>
+          : <button
+              onClick={() => signIn("google")}
+              className="cursor-pointer  hover:text-gray-600"
+            >
+              Sign in with Google
+            </button>
+          }
         </div>
       </nav>
     </header>
