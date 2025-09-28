@@ -1,0 +1,68 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "nix",
+      "args": [
+        "shell",
+        "nixpkgs#uv",
+        "-c",
+        "sh",
+        "-c",
+        "uvx mcp-server-fetch"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "filesystem": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-filesystem",
+        "--base-directory",
+        "."
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "read_file",
+        "list_directory"
+      ]
+    },
+    "github": {
+      "command": "nix",
+      "args": [
+        "run",
+        "nixpkgs#github-mcp-server",
+        "--",
+        "stdio"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "Prisma-Local": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "prisma",
+        "mcp"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "nixos": {
+      "command": "nix",
+      "args": [
+        "run",
+        "nixpkgs#mcp-nixos",
+        "--"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "nixos_info",
+        "nixos_search"
+      ]
+    }
+  }
+}
