@@ -77,6 +77,9 @@ jobs:
     needs: format
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     env:
       DATABASE_URL: "postgresql://NOT_A_REAL_URL"
 
