@@ -22,7 +22,7 @@ type GetDbParams = {
  * @returns {PrismaClient} A configured instance of PrismaClient using the PrismaPg adapter.
  */
 function getDb({ connectionString }: GetDbParams) {
-  const pool = new PrismaPg({ connectionString }, { schema: "prisma" });
+  const pool = new PrismaPg({ connectionString });
   const prismaClient = new PrismaClient({ adapter: pool });
 
   return prismaClient;
