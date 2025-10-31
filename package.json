@@ -4,14 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx @dotenvx/dotenvx run --convention=nextjs -- next dev --turbopack",
-    "build": "npx @dotenvx/dotenvx run --convention=nextjs -- next build --turbopack",
-    "start": "npx @dotenvx/dotenvx run --convention=nextjs -- next start",
-    "format": "prettier --write . --cache",
-    "lint": "npx --node-options='--experimental-strip-types' eslint --flag unstable_native_nodejs_ts_config",
+    "dev": "dotenvx run --convention=nextjs -- next dev --turbopack",
+    "build": "dotenvx run --convention=nextjs -- next build --turbopack",
+    "start": "dotenvx run --convention=nextjs -- next start",
+    "format": "prettier --write . --cache; \n prisma format",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "type-check": "tsc --noEmit",
     "postinstall": "prisma generate",
-    "encrypt": "npx @dotenvx/dotenvx encrypt --env-file .env --exclude-key DATABASE_URL",
-    "decrypt": "npx @dotenvx/dotenvx decrypt --env-file .env"
+    "encrypt": "dotenvx encrypt --env-file .env --exclude-key DATABASE_URL",
+    "decrypt": "dotenvx decrypt --env-file .env"
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",
@@ -33,14 +34,13 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "prettier": "^3.6.2",
+    "prettier-plugin-sql": "^0.19.2",
     "prisma": "^6.18.0",
     "tailwindcss": "^4",
-    "tsx": "^4.19.2",
     "typescript": "^5"
   },
   "dependenciesComments": {
-    "@eslint/eslintrc": "This could probably be removed at some point if the config file is updated",
-    "tsx": "only for the prisma migration seed. if that gets removed or we move to a node version that supports typescript this can be removed"
+    "@eslint/eslintrc": "This could probably be removed at some point if the config file is updated"
   },
   "engineStrict": true,
   "engines": {
