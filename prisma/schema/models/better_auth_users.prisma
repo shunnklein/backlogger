@@ -1,0 +1,96 @@
+model User {
+  /// Unique identifier for each user
+  id            String    @id @default(cuid(2)) @db.Char(24)
+  /// User's chosen display name
+  name          String
+  /// User's email address for communication and login
+  email         String    @unique
+  /// Whether the user's email is verified
+  emailVerified Boolean   @default(false)
+  /// User's image url
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+
+  /// Timestamp of when the user account was created
+  createdAt DateTime @default(now())
+  /// Timestamp of the last update to the user's information
+  updatedAt DateTime @updatedAt
+
+  @@schema("managed_by_better_auth")
+}
+
+model Account {
+  /// Unique identifier for each account
+  id                    String    @id @default(cuid(2)) @db.Char(24)
+  /// The ID of the account as provided by the SSO or equal to userId for credential accounts
+  accountId             String
+  /// The ID of the provider
+  providerId            String
+  /// The ID of the user
+  userId                String    @db.Char(24)
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// The access token of the account. Returned by the provider
+  accessToken           String?
+  /// The refresh token of the account. Returned by the provider
+  refreshToken          String?
+  /// The ID token returned from the provider
+  idToken               String?
+  /// The time when the access token expires
+  accessTokenExpiresAt  DateTime?
+  /// The time when the refresh token expires
+  refreshTokenExpiresAt DateTime?
+  /// The scope of the account. Returned by the provider
+  scope                 String?
+  /// The password of the account. Mainly used for email and password authentication
+  password              String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@schema("managed_by_better_auth")
+}
+
+model Session {
+  /// Unique identifier for each session
+  id        String   @id @default(cuid(2)) @db.Char(24)
+  /// The time when the session expires
+  expiresAt DateTime
+  /// The unique session token
+  token     String   @unique
+  /// The IP address of the device
+  ipAddress String?
+  /// The user agent information of the device
+  userAgent String?
+  /// The ID of the user
+  userId    String   @db.Char(24)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([token])
+  @@schema("managed_by_better_auth")
+}
+
+model Verification {
+  /// Unique identifier for each verification
+  id         String   @id @default(cuid(2)) @db.Char(24)
+  /// The identifier for the verification request
+  identifier String
+  /// The value to be verified
+  value      String
+  /// The time when the verification request expires
+  expiresAt  DateTime
+
+  /// Timestamp of when the verification was created
+  createdAt DateTime @default(now())
+  /// Timestamp of when the verification was updated
+  updatedAt DateTime @updatedAt
+
+  @@index([identifier])
+  @@schema("managed_by_better_auth")
+}
