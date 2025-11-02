@@ -25,6 +25,7 @@ jobs:
         with:
           node-version-file: package.json
           cache: "npm"
+      - run: npm ci
       - name: Run a Prettier Check
         run: npx prettier --check .
 
