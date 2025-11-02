@@ -22,7 +22,7 @@ import dotenvx from "@dotenvx/dotenvx";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.url().startsWith("postgresql://"),
-    AUTH_SECRET: z.string(),
+    BETTER_AUTH_SECRET: z.string(),
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
   },

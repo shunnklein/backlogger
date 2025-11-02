@@ -1,10 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "@src/lib/auth-client";
 
 export default function Header() {
-  const { data: userSession, status } = useSession();
+  const { data: userSession, isPending } = useSession();
+
+  const handleSignIn = async () => {
+    await signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+
+  const handleSignOut = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          window.location.href = "/";
+        },
+      },
+    });
+  };
+
   return (
     <header className="w-full bg-white shadow-md py-4 px-8">
       <nav className="flex justify-between items-center">
@@ -27,19 +45,19 @@ export default function Header() {
           >
             New User
           </Link>
-          {status === "authenticated" ?
+          {userSession?.user ?
             <div className="flex flex-col items-center justify-center">
-              <p>Welcome, {userSession?.user?.name}!</p>
+              <p>Welcome, {userSession.user.name}!</p>
               <button
-                onClick={() => signOut()}
+                onClick={handleSignOut}
                 className="cursor-pointer hover:text-gray-600"
               >
                 Sign out
               </button>
             </div>
           : <button
-              onClick={() => signIn("google")}
-              className="cursor-pointer  hover:text-gray-600"
+              onClick={handleSignIn}
+              className="cursor-pointer hover:text-gray-600"
             >
               Sign in with Google
             </button>
