@@ -1,20 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, signOut, useSession } from "@src/lib/auth-client";
+import { authClient } from "@lib/authClient";
 
 export default function Header() {
-  const { data: userSession, isPending } = useSession();
+  const { data: userSession, isPending } = authClient.useSession();
 
   const handleSignIn = async () => {
-    await signIn.social({
+    await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
     });
   };
 
   const handleSignOut = async () => {
-    await signOut({
+    await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
           window.location.href = "/";
