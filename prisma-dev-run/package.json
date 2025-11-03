@@ -1,0 +1,28 @@
+{
+  "name": "prisma-dev-run",
+  "version": "1.0.0",
+  "description": "Wrap any command with a local Prisma Postgres database",
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.ts",
+  "bin": {
+    "prisma-dev-run": "./index.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/dev": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "@types/pg": "^8.15.6",
+    "pg": "^8.16.3",
+    "typescript": "^5.9.3"
+  }
+}

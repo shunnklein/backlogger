@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "dotenvx run --convention=nextjs -- next dev --turbopack",
+    "dev": "prisma-dev-run -- dotenvx run --convention=nextjs -- next dev --turbopack",
     "build": "dotenvx run --convention=nextjs -- next build --turbopack",
     "start": "dotenvx run --convention=nextjs -- next start",
     "format": "prettier --write . --cache; \n prisma format",
@@ -36,6 +36,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-sql": "^0.19.2",
     "prisma": "^6.18.0",
+    "prisma-dev-run": "file:./prisma-dev-run",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
